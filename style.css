@@ -1,0 +1,29 @@
+#gameboard {
+    position: fixed;
+    width: 800px;
+    height: 400px;
+    background-color: antiquewhite;
+    margin: 30px auto 0px auto
+}
+
+.yellow {
+    color: rgb(244, 205, 10);
+    cursor: pointer;
+    
+}
+
+.red {
+    color: red;
+    cursor: pointer;
+}
+
+.blue {
+    color: rgb(16, 69, 174);
+    cursor: pointer;
+}
+
+.black {
+    color: black;
+    cursor: pointer;
+}
+
