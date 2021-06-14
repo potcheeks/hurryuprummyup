@@ -1,29 +1,97 @@
 #gameboard {
-    position: fixed;
+    display: grid;
     width: 800px;
-    height: 400px;
-    background-color: antiquewhite;
-    margin: 30px auto 0px auto
+    grid-template-columns: [first]40px [line2]50px [line3]auto [col-r-start]50px [five]40px [end];
+    grid-template-rows: [row1-above]50px [row1-below]150px [third-line] 150px [last-line];
+    justify-items: auto;
+    border: 1px solid black
+}
+
+#playtable {
+    grid-column-start: line2;
+    grid-column-end: five;
+    grid-row-start: row1-below;
+    grid-row-end: third-line;
+    
+    
+}
+
+#rack {
+    grid-column-start: line2;
+    grid-column-end: five;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+    
+    
+}
+
+#rackFlexBox {
+    display: flex;
+   
+}
+
+#tableFlexBox {
+    display: flex;
+    align-items: baseline;
 }
 
 .yellow {
-    color: rgb(244, 205, 10);
+    color: rgb(16, 14, 6);
     cursor: pointer;
+    font-size: 25px;
+    width: 30px;
+    height: 50px;
+    background-color: burlywood;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid white;
+    
     
 }
 
 .red {
     color: red;
     cursor: pointer;
+    font-size: 25px;
+    width: 30px;
+    height: 50px;
+    background-color: burlywood;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid white;
+    
+    
 }
 
 .blue {
-    color: rgb(16, 69, 174);
+    color: rgb(129, 142, 167);
     cursor: pointer;
+    font-size: 25px;
+    width: 30px;
+    height: 50px;
+    background-color: burlywood;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid white;
+    
+    
+    
 }
 
 .black {
     color: black;
     cursor: pointer;
+    font-size: 25px;
+    width: 30px;
+    height: 50px;
+    background-color: burlywood;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid white;
+    
+    
 }
 
+p {
+    font-size: 10x;
+}
