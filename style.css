@@ -27,16 +27,18 @@
 
 #rackFlexBox {
     display: flex;
+    justify-content: space-evenly;
+
    
 }
 
 #tableFlexBox {
     display: flex;
-    align-items: baseline;
+    justify-content: space-evenly;
 }
 
 .yellow {
-    color: rgb(16, 14, 6);
+    color: rgb(232, 215, 150);
     cursor: pointer;
     font-size: 25px;
     width: 30px;
@@ -92,6 +94,3 @@
     
 }
 
-p {
-    font-size: 10x;
-}

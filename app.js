@@ -5,7 +5,9 @@ const numbers = [
 ];
 const originalPouch = []; // Each tile is repeated, there are 2 duplicated sets
 const playerRack = []; // true location
-const ontherack = ""
+const usedTiles = [];
+const currentScore = '';
+
 
 const main = () => {
   // BUILDING POUCH
@@ -14,7 +16,6 @@ const main = () => {
     constructor(colour, number) {
       this.colour = colour;
       this.number = number;
-      this.ontherack = true;
     }
   }
 
@@ -50,14 +51,15 @@ const main = () => {
   // creating the player rack on JQUERY
   const $body = $("body");
   const $nameInput = $("<textarea>").attr("id", "nameinput");
+  $body.prepend($nameInput);
   const $tableFlexBox = $('<div>').attr("id","tableFlexBox")
   $('#playtable').append($tableFlexBox)
   const $rackFlexBox = $('<div>').attr("id","rackFlexBox")
   $('#rack').append($rackFlexBox)
- 
+ const $submitButton = $('<button>').text("BEAM ME UP SCOTTAYEEEE!").attr("id","#submitbutton").appendTo($('#playtable'))
 
 
-  $body.prepend($nameInput);
+  
   // PLAYER TO PUT CARDS OUT ON PLAYTABLE
   // append divs with unique id
   // PLAYER TO DRAW CARD IF NEEDED
@@ -65,26 +67,48 @@ const main = () => {
   // logic and create button
   // COMPUTER TO CHECK, FOR EACH COMPLETE SET, PLAYER GETS POINTS FROM TOTAL SUM FROM COMPLETED SETS
 
-//   const renderRack = () => {
-//     for (let i = 0; i < playerRack.length; i++) {
-//       ($("<div>").text(playerRack[i].number).addClass(playerRack[i].colour)).appendTo($(".rack"));
-//     }
-//   };
-
-// need to add button
 const renderRack = () => {
     for (let i = 0; i < playerRack.length; i++) {
       ($("<div>").text(playerRack[i].number).addClass(playerRack[i].colour).on('click', moveToTable)).appendTo($('#rackFlexBox'));
     }
   };
 
-
 const moveToTable = (event) => {
     $('#tableFlexBox').append($(event.target));
-    $(event.target).on('click', moveToTable)
+    usedTiles.push($(event.target));
+    $(event.target).attr("id", $(event.target).text())
+}
+
+const ruleChecker = () => {
+        if (usedTiles.length < 3) {
+            window.alert("Insufficient tiles, you need at least 3!")
+        } else {
+            let countSame = 0;
+            for (let i of usedTiles){
+                className = $(usedTiles[0]).attr("class");
+                if ($(i).attr("class") === className ) {
+                    countSame ++ }
+                    else {
+                        window.alert("Nope! Try again")
+                    }
+                } if (countSame === usedTiles.length) {
+                    window.alert("hurray!")
+                }
+
+        }   
     }
+
     
-   
+
+$submitButton.on("click", () => {
+    ruleChecker();
+}
+)
+
+
+
+
+
 
 
 
@@ -105,6 +129,8 @@ const moveToTable = (event) => {
   console.log("player rack array length is now", playerRack.length);
   console.log("original rack is now", originalPouch);
   console.log("original pouch length is now", originalPouch.length,"the length should be 84");
+  
+
 
 };
 
