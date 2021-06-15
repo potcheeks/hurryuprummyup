@@ -4,8 +4,9 @@ const numbers = [
   12, 13,
 ];
 const originalPouch = []; // Each tile is repeated, there are 2 duplicated sets
-const playerRack = []; // true location
+const playerRack = [];
 const usedTiles = [];
+const playerTable = [];
 const currentScore = "";
 
 const main = () => {
@@ -36,16 +37,15 @@ const main = () => {
   // // PUSHING IT INTO THE PLAYER RACK, USER CLICKS THE BUTTON FOR THE NUMBER OF CARDS
   const addTileToRack = () => {
     const playerMaxCards = 20;
-    for (let i = 0; i < playerMaxCards; i++) {
-      if (playerRack.length < playerMaxCards) {
-        playerRack.push(drawRandomCard(originalPouch)[0]);
-        // returning the element
-      }
+    let drawCardToRack = playerMaxCards - playerRack.length
+    for (let i = 0; i < drawCardToRack; i++) {
+      playerRack.push(drawRandomCard(originalPouch)[0]);
+      // returning the element
     }
+    renderRack();
   };
 
-  // PLAYER TO PUT CARDS OUT ON PLAYTABLE
-  // creating the player rack on JQUERY
+  
   const $body = $("body");
   const $nameInput = $("<textarea>").attr("id", "nameinput");
   $body.prepend($nameInput);
@@ -53,40 +53,56 @@ const main = () => {
   $("#playtable").append($tableFlexBox);
   const $rackFlexBox = $("<div>").attr("id", "rackFlexBox");
   $("#rack").append($rackFlexBox);
+
+  //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
     .text("BEAM ME UP SCOTTAYEEEE!")
     .attr("id", "#submitbutton")
     .appendTo($("#playtable"));
 
-  // PLAYER TO PUT CARDS OUT ON PLAYTABLE
-  // append divs with unique id
-  // PLAYER TO DRAW CARD IF NEEDED
-  // PLAYER TO MAKE COMPLETE SETS ON TABLE AND CLICK BUTTON
-  // logic and create button
-  // COMPUTER TO CHECK, FOR EACH COMPLETE SET, PLAYER GETS POINTS FROM TOTAL SUM FROM COMPLETED SETS
+  const $drawButton = $("<button>")
+    .text("DRAW A CARD, OR TWO, OR THREE")
+    .attr("id", "drawcardbutton")
+    .appendTo($("#rack"));
 
   const renderRack = () => {
+    $("#rackFlexBox").empty();
     for (let i = 0; i < playerRack.length; i++) {
       $("<div>")
         .text(playerRack[i].number)
         .addClass(playerRack[i].colour)
+        .attr("number", (playerRack[i].number))
+        .attr("id", `${i}`)
         .on("click", moveToTable)
         .appendTo($("#rackFlexBox"));
     }
   };
-
+/////////////////////// PLAYTABLE ///////////////////////////////
   const moveToTable = (event) => {
     $("#tableFlexBox").append($(event.target));
-    usedTiles.push($(event.target));
-    $(event.target).attr("id", $(event.target).text());
+    usedTiles.push($(event.target))
+    removingTile();
   };
+ //////////////////////// REMOVING TILE ////////////////////
+ const removingTile = () => {
+    playerTable.push(playerRack.splice("#id",1))
+  }
+
+  const returnToPlayerRack = () => {
+
+  }
+  ///////////////////////////////////// CALLING THE LOGICS /////////////////////////////////
+
+ 
+
+
 
   ////////////////////////////////
   ////////// SAME COLOUR /////////
   const checkSameColour = () => {
     let countSame = 0;
     for (let i = 0; i < usedTiles.length; i++) {
-      className = usedTiles[0].attr("class");
+      className = usedTiles[0].attr("class"); // colour
       if (usedTiles[i].attr("class") === className) {
         // check for same colour
         countSame++;
@@ -104,8 +120,8 @@ const main = () => {
   const checkRunningNumber = () => {
     let countSame = 0;
     for (let i = 0; i < usedTiles.length; i++) {
-      idOne = parseInt(usedTiles[0].attr("id"));
-      if (parseInt(usedTiles[i].attr("id")) === idOne + i) {
+      idOne = parseInt(usedTiles[0].attr("number"));
+      if (parseInt(usedTiles[i].attr("number")) === idOne + i) {
         countSame++;
       } else {
         console.log("false");
@@ -122,8 +138,8 @@ const main = () => {
   const checkSameNumber = () => {
     let countSame = 0;
     for (let i = 0; i < usedTiles.length; i++) {
-      idOne = parseInt(usedTiles[0].attr("id"));
-      if (parseInt(usedTiles[i].attr("id")) === idOne) {
+      idOne = parseInt(usedTiles[0].attr("number"));
+      if (parseInt(usedTiles[i].attr("number")) === idOne) {
         countSame++;
       }
       if (countSame === usedTiles.length) {
@@ -135,24 +151,31 @@ const main = () => {
   ///////////////////////////////
   /// RUNNING THE GAME /////////
   const runGame = () => {
-      if (usedTiles.length < 3) {
-          console.log('You need more than 2 tiles!')
-          return false;
-      } else if (checkSameColour() === true && checkRunningNumber() === true) {
+    if (usedTiles.length < 3) {
+    window.alert("You need more than 2 tiles!")
+      console.log("You need more than 2 tiles!");
+
+      return false;
+    } else if (checkSameColour() === true && checkRunningNumber() === true) {
+        window.alert("yeah running when you're sober")
         console.log("yeah running numbers and same colour");
-        return true;} else if (checkSameColour() === false && checkSameNumber() === true) {
-            console.log("yeah same numbers different colour!");
-            return true;
-          } else {
-              console.log("neh")
-          }
+      return true;
+    } else if (checkSameColour() === false && checkSameNumber() === true) {
+        window.alert("yeh same numbers on acid")
+        console.log("yeah same numbers different colour!");
+      return true;
+    } else {
+     window.alert("neh")
+      console.log("neh")
+      return false;
+    }
   };
 
   $submitButton.on("click", runGame);
+  $drawButton.on("click", addTileToRack);
 
   buildPouch();
   addTileToRack();
-  renderRack();
 };
 
 $(main);
