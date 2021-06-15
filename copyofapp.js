@@ -81,91 +81,78 @@ const main = () => {
     $(event.target).attr("id", $(event.target).text());
   };
 
+  ////////////////////////////////
+  ////////// SAME COLOUR /////////
+  const checkSameColour = () => {
+    let countSame = 0;
+    for (let i = 0; i < usedTiles.length; i++) {
+      className = usedTiles[0].attr("class");
+      if (usedTiles[i].attr("class") === className) {
+        // check for same colour
+        countSame++;
+      } else {
+        return false;
+      }
+      if (countSame === usedTiles.length) {
+        return true;
+      }
+    }
+  };
+
+  ///////////////////////////////////
+  ////////// RUNNING NUMBER /////////
   const checkRunningNumber = () => {
-    // DO NOT TOUCH
     let countSame = 0;
     for (let i = 0; i < usedTiles.length; i++) {
       idOne = parseInt(usedTiles[0].attr("id"));
       if (parseInt(usedTiles[i].attr("id")) === idOne + i) {
         countSame++;
       } else {
-        window.alert("Nope! Try again");
+        console.log("false");
+        return false;
       }
-    }
-    if (countSame === usedTiles.length) {
-      window.alert("hurray!");
+      if (countSame === usedTiles.length) {
+        return true;
+      }
     }
   };
 
-
-
-  const checkForSameColourRunningNumber = () => {
-    // DO NOT TOUCH
+  ///////////////////////////////////
+  ////////// SAME NUMBER ////////////
+  const checkSameNumber = () => {
     let countSame = 0;
     for (let i = 0; i < usedTiles.length; i++) {
-      className = usedTiles[0].attr("class");
-      if (usedTiles[i].attr("class") === className) { // check for same colour 
+      idOne = parseInt(usedTiles[0].attr("id"));
+      if (parseInt(usedTiles[i].attr("id")) === idOne) {
         countSame++;
-      } else {
-        window.alert("Nope! Try Again!");
+      }
+      if (countSame === usedTiles.length) {
+        return true;
       }
     }
-    if (countSame === usedTiles.length) { // this step confirms same colour, now to check if it's running number 
-        let countSame = 0;
-        for (let i = 0; i < usedTiles.length; i++) {
-          idOne = parseInt(usedTiles[0].attr("id"));
-          if (parseInt(usedTiles[i].attr("id")) === idOne + i) {
-            countSame++;
-          } else { // if different colour, check if they're the same number
-            let countSame = 0;
-            for (let i=0; i<usedTiles.length; i++) {
-                idOne = parseInt(usedTiles[0].attr('id'));
-            }
-          }
-        }
-        if (countSame === usedTiles.length) {
-          return window.alert("hurray!");
-        };
-    }
   };
-  
-const checkForSameNumber = () => {
-    let countSame = 0;
-    for (let i = 0; i < usedTiles.length; i++) {
-        idOne = parseInt(usedTiles[0].attr('id'));
-        if (parseInt(usedTiles[i].attr("id"))=== idONe) {
-            countSame ++;
-        }
-    }
-}
 
+  ///////////////////////////////
+  /// RUNNING THE GAME /////////
+  const runGame = () => {
+      if (usedTiles.length < 3) {
+          console.log('You need more than 2 tiles!')
+          return false;
+      } else if (checkSameColour() === true && checkRunningNumber() === true) {
+        console.log("yeah running numbers and same colour");
+        return true;} else if (checkSameColour() === false && checkSameNumber() === true) {
+            console.log("yeah same numbers different colour!");
+            return true;
+          } else {
+              console.log("neh")
+          }
+  };
 
-
-
-
-  $submitButton.on("click", () => {
-    checkForSameColourRunningNumber();
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
+  $submitButton.on("click", runGame);
 
   buildPouch();
   addTileToRack();
   renderRack();
-
-
-
 };
 
 $(main);
