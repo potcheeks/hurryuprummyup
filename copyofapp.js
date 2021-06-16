@@ -10,7 +10,7 @@ const playerTable = [];
 let currentScore = 0;
 
 const main = () => {
-  // BUILDING POUCH
+  
   const $body = $("body");
   const $tableFlexBox = $("<div>").attr("id", "tableFlexBox");
   $("#playtable").append($tableFlexBox);
@@ -18,7 +18,9 @@ const main = () => {
   $("#rack").append($rackFlexBox);
   const $scoreBoard = $("<div>").text(currentScore).addClass("scoreboard");
   $("#controlpanel").append($scoreBoard)
+ 
 
+// BUILDING POUCH
 
   class Tile {
     constructor(colour, number) {
@@ -60,7 +62,7 @@ const main = () => {
   //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
     .text("BEAM ME UP SCOTTAYEEEE!")
-    .attr("id", "#submitbutton")
+    .attr("id", "submitbutton")
     .appendTo($("#playtable"));
 
   const $drawButton = $("<button>")
@@ -68,11 +70,29 @@ const main = () => {
     .attr("id", "drawcardbutton")
     .appendTo($("#rack"));
 
-    const $timerButton = $('#start-button')
-    const timeLeftDisplay = $('#time-left')
-    timeLeft = 60
-        
+    ////////////////////// TIMER  /////////////////////////////
+    const startTimer = (duration, display) => {
+        let timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
     
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+            display.text(minutes + ":" + seconds);
+    
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+       
+    jQuery(function ($) {
+        var oneMinutes = 60,
+            display = $('#time');
+        startTimer(oneMinutes, display);
+    });
 
     /////////////////////////// RACK ////////////////////////////
   const renderRack = () => {
@@ -123,7 +143,7 @@ const moveToTable = (event) => {
        renderTable();
 
        }
-     // not working need to tweak data
+    
     
          
   ///////////////////////////////////// CALLING THE LOGICS /////////////////////////////////

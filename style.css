@@ -1,10 +1,29 @@
+body {
+    background-image: url(https://i.ibb.co/Wv51FdZ/element-ivory-16.png);
+    background-repeat: no-repeat;
+    background-position: center 75%;
+    padding: 50px 50px 80px 50px;
+    
+}
+#toppart {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-gap: 1em;
+    grid-auto-rows: minmax(50px, auto);
+
+}
+
+#rules {
+    text-align: right;
+}
 #gameboard {
     display: grid;
-    width: 800px;
+    width: 850px;
     grid-template-columns: [first]40px [line2]50px [line3]auto [col-r-start]50px [five]40px [end];
     grid-template-rows: [row1-above]50px [row1-below]150px [third-line] 150px [last-line];
     justify-items: auto;
     border: 1px solid black
+
 }
 
 #playtable {
@@ -38,13 +57,9 @@
 }
 
 .scoreboard {
-    grid-column-start: five;
-    grid-column-end: end;
-    grid-row-start: row1-above;
-    grid-row-end: row1-below;
     font-size: 40px;
     text-align: right;
-    padding: 35px 50px 0px 0px;
+    padding: 0px 50px 0px 0px;
     
 }
 
@@ -55,6 +70,7 @@
     grid-row-end: row1-below;
     
 }
+
 .yellow {
     color: rgb(255, 226, 112);
     cursor: pointer;
@@ -64,13 +80,13 @@
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid transparent
     
     
 }
 
 .red {
-    color: red;
+    color: rgb(154, 83, 83);
     cursor: pointer;
     font-size: 25px;
     width: 30px;
@@ -78,13 +94,13 @@
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid transparent;
     
     
 }
 
 .blue {
-    color: rgb(129, 142, 167);
+    color: rgb(255, 255, 255);
     cursor: pointer;
     font-size: 25px;
     width: 30px;
@@ -92,7 +108,7 @@
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid transparent;
     
     
     
@@ -107,10 +123,37 @@
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
-    border: 2px solid white;
+    border: 2px solid transparent;
     
     
 }
 
 
+#time, h4 {
+    text-align: center;
+    
+}
 
+#submitbutton, #drawcardbutton {
+    display: inline-block;
+    padding: 0.5emm 3em;
+    border: 0.16em solid #FFFFFF;
+    margin: 0 0.3em 0.3em 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    text-align: center;
+    transition: all 0.15s;
+
+}
+#submitbutton.hover, #drawcardbutton.hover {
+    color: #BBBBBB
+    
+}
+
+#rules {
+    font-family: 'Roboto', sans-serif;
+}
