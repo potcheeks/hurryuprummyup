@@ -61,39 +61,44 @@ const main = () => {
 
   //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
-    .text("BEAM ME UP SCOTTAYEEEE!")
+    .text("beam me up scotty boy")
     .attr("id", "submitbutton")
     .appendTo($("#playtable"));
 
   const $drawButton = $("<button>")
-    .text("DRAW A CARD, OR TWO, OR THREE")
+    .text("give. me. more.")
     .attr("id", "drawcardbutton")
     .appendTo($("#rack"));
 
+    const $timerButton = $('#timer')
+
     ////////////////////// TIMER  /////////////////////////////
-    const startTimer = (duration, display) => {
-        let timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
-    
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-            display.text(minutes + ":" + seconds);
-    
-            if (--timer < 0) {
-                timer = duration;
+
+
+    const startTimer  = () => {
+        let time = 60;
+        let x = setInterval(function() {
+            document.getElementById("time").innerHTML=" "+time+" seconds";
+            time=time-1;
+
+            if(time<0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML="play again?"
+                
+            
             }
+
         }, 1000);
+        
     }
        
-    jQuery(function ($) {
-        var oneMinutes = 60,
-            display = $('#time');
-        startTimer(oneMinutes, display);
-    });
+    // jQuery(function ($) {
+    //     var oneMinutes = 60,
+    //         display = $('#time');
+    //     startTimer(oneMinutes, display);
+    // });
 
+    
     /////////////////////////// RACK ////////////////////////////
   const renderRack = () => {
     $("#rackFlexBox").empty();
@@ -254,7 +259,9 @@ const moveToTable = (event) => {
 
   $submitButton.on("click", runGame);
   $drawButton.on("click", addTileToRack);
-//   $timerButton.on("click", countDown);
+  $timerButton.on("click", startTimer)
+
+ 
 
 buildPouch();
 addTileToRack();

@@ -20,7 +20,7 @@ body {
     display: grid;
     width: 850px;
     grid-template-columns: [first]40px [line2]50px [line3]auto [col-r-start]50px [five]40px [end];
-    grid-template-rows: [row1-above]50px [row1-below]150px [third-line] 150px [last-line];
+    grid-template-rows: [row1-above]100px [row1-below]160px [third-line] 140px [last-line];
     justify-items: auto;
     border: 1px solid black
 
@@ -131,6 +131,9 @@ body {
 
 #time, h4 {
     text-align: center;
+    position: relative;
+    
+    
     
 }
 
@@ -141,12 +144,14 @@ body {
     margin: 0 0.3em 0.3em 0;
     box-sizing: border-box;
     text-decoration: none;
-    text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     color: #000000;
     text-align: center;
     transition: all 0.15s;
+    display: center;
+    cursor: pointer;
+    padding: 10px 10px;
 
 }
 #submitbutton.hover, #drawcardbutton.hover {
@@ -156,4 +161,13 @@ body {
 
 #rules {
     font-family: 'Roboto', sans-serif;
+}
+
+#timer {
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 10px;
+    position: relative;
+    cursor: pointer;
 }
