@@ -51,6 +51,7 @@ const main = () => {
       // returning the element
     }
     renderRack();
+    
   };
 
   
@@ -70,16 +71,6 @@ const main = () => {
     const $timerButton = $('#start-button')
     const timeLeftDisplay = $('#time-left')
     timeLeft = 60
-
-    // const countDown = () => {
-    //     setInterval();
-    //     if(timeLeft<=0) {
-    //         clearInterval(timeLeft = 0)
-    //     }
-    //     timeLeftDisplay.innerHTML = timeLeft,
-    //     timeLeft -=1,
-    //     1000
-    // },
         
     
 
@@ -118,25 +109,18 @@ const moveToTable = (event) => {
 }
 
 
-// const moveToTable = (event) => {
-//     usedTiles.push(event.target)
-//     removingTile();
-//   };
- //////////////////////// REMOVING TILE ////////////////////
- const removingTile = () => {
-    playerTable.push(playerRack.splice("#id",1))
-  }
-
-
   const removeTilesWhenSuccessful = () => {
       for (let i =0; i<playerTable.length; i++) {
             playerTable.splice(i,playerTable.length) 
-            usedTiles.splice(i,usedTiles.length)}
       }
+    }
     
     const removeTileWhenFail = () => {
-       $('#tableFlexBox').children().appendTo($('#rackFlexBox'))
+       for (let i=0; i<playerTable.length; i++) {
+           playerRack.push(playerTable.splice(i,playerTable.length)[0])
+       }
        renderRack();
+       renderTable();
 
        }
      // not working need to tweak data
@@ -152,33 +136,48 @@ const moveToTable = (event) => {
   ////////// SAME COLOUR /////////
   const checkSameColour = () => {
     let countSame = 0;
-    for (let i = 0; i < usedTiles.length; i++) {
-      className = usedTiles[0].attr("class"); // colour
-      if (usedTiles[i].attr("class") === className) {
+    for (let i = 0; i < playerTable.length; i++) {
+      className = playerTable[0].colour; // colour
+      if (playerTable[i].colour === className) {
         // check for same colour
         countSame++;
       } else {
         return false;
       }
-      if (countSame === usedTiles.length) {
+      if (countSame === playerTable.length) {
         return true;
       }
     }
   };
 
+  const checkForSDuplicates = () => {
+    for (let i=0; i<playerTable.length-1; i++) {
+        let col1 = playerTable[i].colour 
+        for (let j=i+1; j<playerTable.length; j++) {
+            let col2 = playerTable[j].colour
+         if(col1 === col2) 
+            return true
+        } 
+        
+    } 
+    return false
+  }
+
+  
   ///////////////////////////////////
   ////////// RUNNING NUMBER /////////
   const checkRunningNumber = () => {
     let countSame = 0;
-    for (let i = 0; i < usedTiles.length; i++) {
-      idOne = parseInt(usedTiles[0].attr("number"));
-      if (parseInt(usedTiles[i].attr("number")) === idOne + i) {
+    playerTable.sort( (tile1,tile2) => tile1.number - tile2.number)
+    console.log("playerTable", playerTable[0].number,playerTable[1].number, playerTable[2].number)
+    for (let i = 0; i < playerTable.length; i++) {
+      idOne = playerTable[0].number;
+      if (playerTable[i].number === idOne + i) {
         countSame++;
       } else {
-        console.log("false");
         return false;
       }
-      if (countSame === usedTiles.length) {
+      if (countSame === playerTable.length) {
         return true;
       }
     }
@@ -188,12 +187,12 @@ const moveToTable = (event) => {
   ////////// SAME NUMBER ////////////
   const checkSameNumber = () => {
     let countSame = 0;
-    for (let i = 0; i < usedTiles.length; i++) {
-      idOne = parseInt(usedTiles[0].attr("number"));
-      if (parseInt(usedTiles[i].attr("number")) === idOne) {
+    for (let i = 0; i < playerTable.length; i++) {
+      idOne = playerTable[0].number;
+      if (playerTable[i].number === idOne) {
         countSame++;
       }
-      if (countSame === usedTiles.length) {
+      if (countSame === playerTable.length) {
         return true;
       }
     }
@@ -207,36 +206,39 @@ const moveToTable = (event) => {
   ///////////////////////////////
   /// RUNNING THE GAME /////////
   const runGame = () => {
-    if (usedTiles.length < 3) {
+    if (playerTable.length < 3) {
     window.alert("You need more than 2 tiles!")
     removeTileWhenFail();
-      
+    return false
       
     } else if (checkSameColour() === true && checkRunningNumber() === true) {
         addScore();
         $tableFlexBox.empty();
-        // removeTilesWhenSuccessful();
+        removeTilesWhenSuccessful();
       
 
-    } else if (checkSameColour() === false && checkSameNumber() === true) {
+    } else if (checkSameColour() === false && checkSameNumber() === true && checkForSDuplicates() === false) {
         addScore()
         $tableFlexBox.empty();
-        // removeTilesWhenSuccessful();
+        removeTilesWhenSuccessful();
       
 
     } else {
      window.alert("neh")
-    //  removeTileWhenFail();
+     removeTileWhenFail();
       
     }
+
+    
   };
 
   $submitButton.on("click", runGame);
   $drawButton.on("click", addTileToRack);
 //   $timerButton.on("click", countDown);
 
-  buildPouch();
-  addTileToRack();
+buildPouch();
+addTileToRack();
+
 };
 
 $(main);
