@@ -37,6 +37,24 @@
     justify-content: space-evenly;
 }
 
+.scoreboard {
+    grid-column-start: five;
+    grid-column-end: end;
+    grid-row-start: row1-above;
+    grid-row-end: row1-below;
+    font-size: 40px;
+    text-align: right;
+    padding: 35px 50px 0px 0px;
+    
+}
+
+#controlpanel {
+    grid-column-start: first;
+    grid-column-end: end;
+    grid-row-start: row1-above;
+    grid-row-end: row1-below;
+    
+}
 .yellow {
     color: rgb(232, 215, 150);
     cursor: pointer;
@@ -93,4 +111,6 @@
     
     
 }
+
+
 

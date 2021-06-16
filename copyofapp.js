@@ -7,10 +7,18 @@ const originalPouch = []; // Each tile is repeated, there are 2 duplicated sets
 const playerRack = [];
 const usedTiles = [];
 const playerTable = [];
-const currentScore = "";
+let currentScore = 0;
 
 const main = () => {
   // BUILDING POUCH
+  const $body = $("body");
+  const $tableFlexBox = $("<div>").attr("id", "tableFlexBox");
+  $("#playtable").append($tableFlexBox);
+  const $rackFlexBox = $("<div>").attr("id", "rackFlexBox");
+  $("#rack").append($rackFlexBox);
+  const $scoreBoard = $("<div>").text(currentScore).addClass("scoreboard");
+  $("#controlpanel").append($scoreBoard)
+
 
   class Tile {
     constructor(colour, number) {
@@ -46,13 +54,7 @@ const main = () => {
   };
 
   
-  const $body = $("body");
-  const $nameInput = $("<textarea>").attr("id", "nameinput");
-  $body.prepend($nameInput);
-  const $tableFlexBox = $("<div>").attr("id", "tableFlexBox");
-  $("#playtable").append($tableFlexBox);
-  const $rackFlexBox = $("<div>").attr("id", "rackFlexBox");
-  $("#rack").append($rackFlexBox);
+
 
   //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
@@ -65,6 +67,23 @@ const main = () => {
     .attr("id", "drawcardbutton")
     .appendTo($("#rack"));
 
+    const $timerButton = $('#start-button')
+    const timeLeftDisplay = $('#time-left')
+    timeLeft = 60
+
+    // const countDown = () => {
+    //     setInterval();
+    //     if(timeLeft<=0) {
+    //         clearInterval(timeLeft = 0)
+    //     }
+    //     timeLeftDisplay.innerHTML = timeLeft,
+    //     timeLeft -=1,
+    //     1000
+    // },
+        
+    
+
+    /////////////////////////// RACK ////////////////////////////
   const renderRack = () => {
     $("#rackFlexBox").empty();
     for (let i = 0; i < playerRack.length; i++) {
@@ -77,20 +96,52 @@ const main = () => {
         .appendTo($("#rackFlexBox"));
     }
   };
+
+  const renderTable = () => {
+    $("#tableFlexBox").empty();
+    for (let i = 0; i < playerTable.length; i++) {
+        $("<div>")
+        .text(playerTable[i].number)
+        .addClass(playerTable[i].colour)
+        .attr("number", (playerTable[i].number))
+        .attr('id', `${i}`)
+        .appendTo($('#tableFlexBox'))
+    }
+  }
+
 /////////////////////// PLAYTABLE ///////////////////////////////
-  const moveToTable = (event) => {
-    $("#tableFlexBox").append($(event.target));
-    usedTiles.push($(event.target))
-    removingTile();
-  };
+const moveToTable = (event) => {
+    let pos = event.target.id
+    playerTable.push(playerRack.splice(pos,1)[0])
+    renderTable()
+    renderRack();
+}
+
+
+// const moveToTable = (event) => {
+//     usedTiles.push(event.target)
+//     removingTile();
+//   };
  //////////////////////// REMOVING TILE ////////////////////
  const removingTile = () => {
     playerTable.push(playerRack.splice("#id",1))
   }
 
-  const returnToPlayerRack = () => {
 
-  }
+  const removeTilesWhenSuccessful = () => {
+      for (let i =0; i<playerTable.length; i++) {
+            playerTable.splice(i,playerTable.length) 
+            usedTiles.splice(i,usedTiles.length)}
+      }
+    
+    const removeTileWhenFail = () => {
+       $('#tableFlexBox').children().appendTo($('#rackFlexBox'))
+       renderRack();
+
+       }
+     // not working need to tweak data
+    
+         
   ///////////////////////////////////// CALLING THE LOGICS /////////////////////////////////
 
  
@@ -148,31 +199,41 @@ const main = () => {
     }
   };
 
+  addScore = () => {
+      currentScore = currentScore +1
+      $(".scoreboard").text(currentScore);
+      return currentScore
+  }
   ///////////////////////////////
   /// RUNNING THE GAME /////////
   const runGame = () => {
     if (usedTiles.length < 3) {
     window.alert("You need more than 2 tiles!")
-      console.log("You need more than 2 tiles!");
-
-      return false;
+    removeTileWhenFail();
+      
+      
     } else if (checkSameColour() === true && checkRunningNumber() === true) {
-        window.alert("yeah running when you're sober")
-        console.log("yeah running numbers and same colour");
-      return true;
+        addScore();
+        $tableFlexBox.empty();
+        // removeTilesWhenSuccessful();
+      
+
     } else if (checkSameColour() === false && checkSameNumber() === true) {
-        window.alert("yeh same numbers on acid")
-        console.log("yeah same numbers different colour!");
-      return true;
+        addScore()
+        $tableFlexBox.empty();
+        // removeTilesWhenSuccessful();
+      
+
     } else {
      window.alert("neh")
-      console.log("neh")
-      return false;
+    //  removeTileWhenFail();
+      
     }
   };
 
   $submitButton.on("click", runGame);
   $drawButton.on("click", addTileToRack);
+//   $timerButton.on("click", countDown);
 
   buildPouch();
   addTileToRack();
