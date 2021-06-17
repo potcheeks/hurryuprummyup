@@ -119,6 +119,7 @@ const main = () => {
       if (time < 0) {
         clearInterval(x);
         document.getElementById("timer").innerHTML = "time's up!";
+        $playtable.remove();
         $("<button>")
           .attr("id", "playagainbutton")
           .appendTo($("#controlpanel"))

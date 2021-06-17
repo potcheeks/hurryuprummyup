@@ -13,9 +13,7 @@ body {
 
 }
 
-#rules {
-    text-align: right;
-}
+
 #gameboard {
     display: grid;
     width: 850px;
@@ -66,15 +64,6 @@ body {
     grid-row-end: third-line;
 }
 
-.welcomeimage {
-    border-radius: 30px;
-    right: 50px;
-    display: block;
-    margin-left: auto;
-    margin-left: auto;
-    cursor: pointer;
-   
-}
 
 .scoreboard {
     font-size: 40px;
@@ -169,14 +158,11 @@ body {
     color: #000000;
     text-align: center;
     transition: all 0.15s;
-    display: center;
     cursor: pointer;
     padding: 10px 10px;
-
-}
-#submitbutton.hover, #drawcardbutton.hover {
-    color: #BBBBBB
     
+ 
+
 }
 
 #rules {
