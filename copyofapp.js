@@ -15,10 +15,11 @@ const main = () => {
   $("#playtable").append($tableFlexBox);
   const $rackFlexBox = $("<div>").attr("id", "rackFlexBox");
   $("#rack").append($rackFlexBox);
-  const $scoreBoard = $("<div>").text(currentScore).addClass("scoreboard");
+  const $scoreBoard = $("<div>").text(currentScore).addClass("scoreboard").css("display", "none");
   $("#controlpanel").append($scoreBoard);
   const $rack = $("#rack").css("display", "none");
   const $playtable = $("#playtable").css("display", "none");
+  const $instructionbox = $("#instructionbox")
 
   //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
@@ -36,13 +37,16 @@ const main = () => {
     .attr("id", "shufflebutton")
     .appendTo($("#rack"));
 
-  const $timerButton = $("#timer");
+  
 
-  // GAME STARTS ON BLANK
+  ////////////////////// GAME STARTS ON BLANK //////////////////
 
   const startGame = () => {
     $rack.toggle().css("display", "show");
     $playtable.toggle().css("display", "show");
+    $scoreBoard.toggle().css("display", "show");
+    $instructionbox.toggle().css("display", "none")
+
     startTimer();
   };
 
@@ -50,7 +54,8 @@ const main = () => {
     location.reload();
   };
 
-  // BUILDING POUCH
+
+  //////////////////// BUILDING POUCH ///////////////////////
 
   class Tile {
     constructor(colour, number) {
@@ -95,8 +100,16 @@ const main = () => {
     } renderRack ();
   };
 
-  ////////////////////// TIMER  /////////////////////////////
+  addScore = () => {
+    currentScore = currentScore + 1;
+    $(".scoreboard").text(currentScore);
+    return currentScore;
+  };
 
+
+  ////////////////////// TIMER  /////////////////////////////
+  
+  const $timerButton = $("#timer");
   const startTimer = () => {
     let time = 60;
     let x = setInterval(function () {
@@ -201,12 +214,6 @@ const main = () => {
   const checkRunningNumber = () => {
     let countSame = 0;
     playerTable.sort((tile1, tile2) => tile1.number - tile2.number);
-    console.log(
-      "playerTable",
-      playerTable[0].number,
-      playerTable[1].number,
-      playerTable[2].number
-    );
     for (let i = 0; i < playerTable.length; i++) {
       idOne = playerTable[0].number;
       if (playerTable[i].number === idOne + i) {
@@ -235,11 +242,6 @@ const main = () => {
     }
   };
 
-  addScore = () => {
-    currentScore = currentScore + 1;
-    $(".scoreboard").text(currentScore);
-    return currentScore;
-  };
   ///////////////////////////////
   /// RUNNING THE GAME /////////
   const runGame = () => {
