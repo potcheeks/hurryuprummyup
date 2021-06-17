@@ -113,7 +113,7 @@ const main = () => {
   const startTimer = () => {
     let time = 60;
     let x = setInterval(function () {
-      document.getElementById("time").innerHTML = " " + time + " seconds";
+      document.getElementById("time").innerHTML = "have " + time + " seconds";
       time = time - 1;
 
       if (time < 0) {
