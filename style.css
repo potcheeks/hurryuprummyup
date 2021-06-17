@@ -3,6 +3,7 @@ body {
     background-repeat: no-repeat;
     background-position: center 75%;
     padding: 50px 50px 80px 50px;
+    margin: 0 auto;
     
 }
 #toppart {
@@ -10,6 +11,7 @@ body {
     grid-template-columns: 40% 60%;
     grid-gap: 1em;
     grid-auto-rows: minmax(50px, auto);
+    
 
 }
 
@@ -20,7 +22,8 @@ body {
     grid-template-columns: [first]40px [line2]50px [line3]auto [col-r-start]50px [five]40px [end];
     grid-template-rows: [row1-above]100px [row1-below]160px [third-line] 140px [last-line];
     justify-items: auto;
-    border: 1px solid black
+    border: 1px solid black;
+    margin: 0 auto;
 
 
 }
