@@ -18,9 +18,9 @@ body {
 
 #gameboard {
     display: grid;
-    width: 850px;
-    grid-template-columns: [first]40px [line2]50px [line3]auto [col-r-start]50px [five]40px [end];
-    grid-template-rows: [row1-above]100px [row1-below]160px [third-line] 140px [last-line];
+    width: 1200px;
+    grid-template-columns: [first]50px [line2]60px [line3]auto [col-r-start]60px [five]50px[end];
+    grid-template-rows: [row1-above]100px [row1-below]250px [third-line] 250px [last-line];
     justify-items: auto;
     border: 1px solid black;
     margin: 0 auto;
@@ -69,9 +69,9 @@ body {
 
 
 .scoreboard {
-    font-size: 40px;
+    font-size: 60px;
     text-align: right;
-    padding: 0px 50px 0px 0px;
+    padding: 0px 90px 0px 0px;
     
 }
 
@@ -84,11 +84,11 @@ body {
 }
 
 .yellow {
-    color: rgb(255, 226, 112);
+    color: rgb(244, 255, 94);
     cursor: pointer;
-    font-size: 25px;
-    width: 30px;
-    height: 50px;
+    font-size: 38px;
+    width: 46px;
+    height: 60px;
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
@@ -100,9 +100,9 @@ body {
 .red {
     color: rgb(154, 83, 83);
     cursor: pointer;
-    font-size: 25px;
-    width: 30px;
-    height: 50px;
+    font-size: 38px;
+    width: 46px;
+    height: 60px;
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
@@ -114,9 +114,9 @@ body {
 .blue {
     color: rgb(255, 255, 255);
     cursor: pointer;
-    font-size: 25px;
-    width: 30px;
-    height: 50px;
+    font-size: 38px;
+    width: 46px;
+    height: 60px;
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
@@ -129,9 +129,9 @@ body {
 .black {
     color: black;
     cursor: pointer;
-    font-size: 25px;
-    width: 30px;
-    height: 50px;
+    font-size: 38px;
+    width: 46px;
+    height: 60px;
     background-color: burlywood;
     border-radius: 8px;
     text-align: center;
@@ -141,23 +141,24 @@ body {
 }
 
 
-#time, h4 {
+#time, h3 {
     text-align: center;
     position: relative;
+    font-size: 20px;
     
     
     
 }
 
 #submitbutton, #drawcardbutton, #shufflebutton {
-    display: inline-block;
+    display: inline-flex;
     padding: 0.5emm 3em;
     border: 0.16em solid #FFFFFF;
-    margin: 0 0.3em 0.3em 0;
+    margin: 0.3em 0.5em 0.em 0;
     box-sizing: border-box;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-size: 15px;
     color: #000000;
     text-align: center;
     transition: all 0.15s;
@@ -179,6 +180,7 @@ body {
     padding: 12px 10px;
     position: relative;
     cursor: pointer;
+    font-size: 15px;
 }
 
 #playagainbutton {
@@ -188,8 +190,9 @@ body {
     padding: 12px 10px;
     position: relative;
     cursor: pointer;
+    font-size: 15px;
 }
 
 #instructionbox {
-    font-size: 20px;
+    font-size: 25px;
 }
