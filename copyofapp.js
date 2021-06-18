@@ -15,14 +15,11 @@ const main = () => {
   $("#playtable").append($tableFlexBox);
   const $rackFlexBox = $("<div>").attr("id", "rackFlexBox");
   $("#rack").append($rackFlexBox);
-  const $scoreBoard = $("<div>")
-    .text(currentScore)
-    .addClass("scoreboard")
-    .css("display", "none");
+  const $scoreBoard = $("<div>").text(currentScore).addClass("scoreboard").css("display", "none");
   $("#controlpanel").append($scoreBoard);
   const $rack = $("#rack").css("display", "none");
   const $playtable = $("#playtable").css("display", "none");
-  const $instructionbox = $("#instructionbox");
+  const $instructionbox = $("#instructionbox")
 
   //////////////////////////////BUTTONS////////////////////////////
   const $submitButton = $("<button>")
@@ -40,13 +37,15 @@ const main = () => {
     .attr("id", "shufflebutton")
     .appendTo($("#rack"));
 
+  
+
   ////////////////////// GAME STARTS ON BLANK //////////////////
 
   const startGame = () => {
     $rack.toggle().css("display", "show");
     $playtable.toggle().css("display", "show");
     $scoreBoard.toggle().css("display", "show");
-    $instructionbox.toggle().css("display", "none");
+    $instructionbox.toggle().css("display", "none")
 
     startTimer();
   };
@@ -54,6 +53,7 @@ const main = () => {
   const reloadGame = () => {
     location.reload();
   };
+
 
   //////////////////// BUILDING POUCH ///////////////////////
 
@@ -83,23 +83,15 @@ const main = () => {
   const addTileToRack = () => {
     const playerMaxCards = 20;
     let drawCardToRack = playerMaxCards - playerRack.length;
-    if (playerRack < playerMaxCards)
-      for (let i = 0; i < drawCardToRack; i++) {
-        playerRack.push(drawRandomCard(originalPouch)[0]);
-        renderRack();
-      }
-    else if (playerRack === 0) {
-      for (let i = 0; i < drawCardToRack; i++) {
-        playerRack.push(drawRandomCard(originalPouch)[0]);
-        renderRack();
-      }
-    } else {
-        window.alert("neh, clear your cards first! you can't draw more.")
-    }
+    for (let i = 0; i < drawCardToRack; i++) {
+      playerRack.push(drawRandomCard(originalPouch)[0]);
+    } renderRack();
   };
 
-  ////////////////////// TIMER  /////////////////////////////
 
+
+  ////////////////////// TIMER  /////////////////////////////
+  
   const $timerButton = $("#timer");
   const startTimer = () => {
     let time = 60;
@@ -169,7 +161,7 @@ const main = () => {
     renderRack();
     renderTable();
   };
-
+  
   const shuffle = () => {
     let length = playerRack.length;
     for (let i = 0; i < length; i++) {
@@ -177,8 +169,7 @@ const main = () => {
     }
     for (let i = 0; i < length; i++) {
       playerRack.push(drawRandomCard(originalPouch)[0]);
-    }
-    renderRack();
+    } renderRack ();
   };
 
   addScore = () => {
@@ -256,7 +247,6 @@ const main = () => {
     if (playerTable.length < 3) {
       window.alert("You need more than 2 tiles!");
       removeTileWhenFail();
-
       return false;
     } else if (checkSameColour() === true && checkRunningNumber() === true) {
       addScore();
